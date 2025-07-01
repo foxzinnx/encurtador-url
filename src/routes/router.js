@@ -7,9 +7,7 @@ router.get('/ping', (req, res) => {
     res.json({pong: true});
 });
 
-router.post('/signup', authController.signup);
-router.post('/signin', authController.signin);
-router.post('/api/shorten', authController.verifyToken, apiController.shorten);
+router.post('/api/shorten', apiController.shorten);
 router.get('/:shortUrl', apiController.shortUrl);
 
 module.exports = router;
