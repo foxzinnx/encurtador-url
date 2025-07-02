@@ -12,7 +12,30 @@ mongoose.connect(process.env.MONGO_URI)
 });
 
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        const allowedOrigins = [
+            'https://encurtador-react.vercel.app',
+            'http://localhost:3000',
+            'http://localhost:5173',
+        ];
+
+        if (!origin) return callback(null, true);
+
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Não permitido pelo CORS'));
+        }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    optionsSuccessStatus: 200 
+};
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));

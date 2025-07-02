@@ -4,7 +4,7 @@ module.exports = {
     shorten: async (req, res) => {
         const { originalUrl } = req.body;
         if(!originalUrl.startsWith('http://') && !originalUrl.startsWith('https://')){
-            return res.status(400).json({error: 'Url inválida'});
+            return res.status(400).json({error: 'URL inválida'});
         }
         const shortUrl = Math.random().toString(36).substring(2, 8);
         const user = await Url.findOne({ shortUrl });
